@@ -26,12 +26,12 @@ body.ui-hidden .brand,body.ui-hidden .nav,body.ui-hidden .info,body.ui-hidden .c
 <div class="stage"><iframe id="galleryFrame" title="3D Gallery"></iframe></div>
 <div class="vignette"></div><div class="grain"></div><div class="comment-layer" id="commentLayer" aria-live="polite"></div>
 <header class="brand"><div class="kicker">UNOFFICIAL FAN ARCHIVE</div><h1>カツドンチャンネル</h1><small>MEMORY / SCENE / VISUAL COLLECTION</small></header>
-<div class="corner"><b>FAN ARCHIVE 004</b><br>DRAG IMAGE / TAP QUOTE / ZOOM<br><span style="opacity:.55">BUILD 004</span></div>
+<div class="corner"><b>FAN ARCHIVE 005</b><br>DRAG IMAGE / TAP QUOTE / ZOOM<br><span style="opacity:.55">BUILD 005</span></div>
 <nav class="nav" id="nav"><div class="nav-head"><span>ARCHIVE INDEX</span><i class="badge">6 FILES</i></div></nav>
 <section class="info" id="info"><div class="eyebrow" id="eyebrow">ARCHIVE 01</div><h2 id="title">KEY VISUAL</h2><p id="desc">画像同士が重なりにくいワイドな3D配置で、ファン目線のビジュアルをゆっくり巡れます。</p><div class="actions"><button class="action" id="random">RANDOM</button><button class="action" id="resetLayout">RESET LAYOUT</button><button class="action" id="quiet">UI HIDE</button></div></section>
 <button class="restore-ui" id="restoreUi" type="button" aria-label="UIを再表示">SHOW UI</button>
 <script>
-const FAN_BUILD='20260817-1732-v4';
+const FAN_BUILD='20260817-1740-v5';
 const archive=[
 ['KEY VISUAL','まずはここから。画像同士の間隔を広げた3D展示室でメインビジュアルを楽しめます。'],
 ['PROFILE SHEET','人物の雰囲気や表情、衣装、空気感をじっくり見るためのファン向け記録。'],
@@ -45,8 +45,11 @@ const quotePool=[
 'あなたのインナーチャイルド、今日も元気？','尊厳が破壊される','来るなら、来い','次世代を代表するセルフエクスプレッショナー','店味','アイブライト','宇宙の采配','感謝感激雨嵐','草回避www','のっぴきならない事情','成ったか','寝方ミスった','みんな楽しんでくれててよかった','睡眠が壊れる','ちゃんと出来るように頑張る。','すみ！','にんげんは しっぱいするもの まなぶもの'
 ];
 const commentColors=['#ffffff','#ffe76a','#7de8ff','#ff9de2','#a8ff9f','#ffb36a'];
-let current=0,lastQuote=-1;
-function emitQuote(){let n=lastQuote;while(n===lastQuote)n=Math.floor(Math.random()*quotePool.length);lastQuote=n;const el=document.createElement('div');el.className='nico-comment';el.textContent=quotePool[n];el.style.top=`${8+Math.random()*72}%`;el.style.fontSize=`${18+Math.floor(Math.random()*12)}px`;el.style.color=commentColors[Math.floor(Math.random()*commentColors.length)];el.style.setProperty('--duration',`${6.2+Math.random()*3.8}s`);commentLayer.appendChild(el);el.addEventListener('animationend',()=>el.remove(),{once:true});}
+let current=0,lastQuote=-1,lastTappedImage=-1,sameImageTapCount=0;
+function makeComment(text,{top=null,size=null,color=null,duration=null,delay=0,className=''}={}){const el=document.createElement('div');el.className='nico-comment'+(className?' '+className:'');el.textContent=text;el.style.top=top??`${8+Math.random()*72}%`;el.style.fontSize=size??`${18+Math.floor(Math.random()*12)}px`;el.style.color=color??commentColors[Math.floor(Math.random()*commentColors.length)];el.style.setProperty('--duration',duration??`${2.05+Math.random()*1.25}s`);if(delay)el.style.animationDelay=`-${delay}s`;commentLayer.appendChild(el);el.addEventListener('animationend',()=>el.remove(),{once:true});return el}
+function emitQuote(){let n=lastQuote;while(n===lastQuote)n=Math.floor(Math.random()*quotePool.length);lastQuote=n;makeComment(quotePool[n])}
+function floodMoralQuote(){const text='モラルのある盗撮をお願いします';const rows=18;for(let row=0;row<rows;row++){for(let lane=0;lane<3;lane++){const duration=2.25+Math.random()*.75;makeComment(text,{top:`${3+row*(94/(rows-1))}%`,size:`${16+Math.floor(Math.random()*12)}px`,color:commentColors[(row+lane)%commentColors.length],duration:`${duration}s`,delay:Math.random()*duration,className:'moral-flood'})}}}
+function handleImageTap(i){if(i===lastTappedImage)sameImageTapCount+=1;else{lastTappedImage=i;sameImageTapCount=1}if(sameImageTapCount>=3){sameImageTapCount=0;lastTappedImage=-1;floodMoralQuote()}else emitQuote()}
 
 archive.forEach((a,i)=>{const b=document.createElement('button');b.className='item'+(i===0?' active':'');b.innerHTML=`<span class="num">0${i+1}</span><span><strong>${a[0]}</strong><em>${a[1]}</em></span>`;b.onclick=()=>select(i);nav.appendChild(b)});
 function select(i){current=i;[...nav.querySelectorAll('.item')].forEach((x,n)=>x.classList.toggle('active',n===i));eye.textContent=`ARCHIVE 0${i+1}`;title.textContent=archive[i][0];desc.textContent=archive[i][1]}
@@ -56,7 +59,7 @@ document.getElementById('resetLayout').onclick=()=>{localStorage.removeItem('fan
 document.getElementById('quiet').onclick=()=>setUiHidden(true);
 document.getElementById('restoreUi').onclick=()=>setUiHidden(false);
 addEventListener('keydown',e=>{if(e.key>='1'&&e.key<='6')select(Number(e.key)-1);if(e.key.toLowerCase()==='r')document.getElementById('random').click();if(e.key.toLowerCase()==='h')setUiHidden(!document.body.classList.contains('ui-hidden'));if(e.key==='Escape')setUiHidden(false)});
-addEventListener('message',e=>{if(e.source!==frame.contentWindow||e.data?.type!=='fan-image-tap')return;const i=Number(e.data.index);if(Number.isInteger(i)&&i>=0&&i<archive.length)select(i);emitQuote()});
+addEventListener('message',e=>{if(e.source!==frame.contentWindow||e.data?.type!=='fan-image-tap')return;const i=Number(e.data.index);if(Number.isInteger(i)&&i>=0&&i<archive.length){select(i);handleImageTap(i)}});
 
 const spaciousLayout=`const imageData = [
   {'x': -5.8, 'y': 2.6, 'z': 0.0, 'scale': 2.8, 'rotY': 0.12},
@@ -66,7 +69,7 @@ const spaciousLayout=`const imageData = [
   {'x':  0.0, 'y': -2.3, 'z': -0.2, 'scale': 2.2, 'rotY': 0.0},
   {'x':  5.5, 'y': -2.3, 'z': 0.7, 'scale': 2.5, 'rotY': -0.10}
 ];`;
-const interactionCode="const fanRaycaster = new THREE.Raycaster();\n    const fanPointer = new THREE.Vector2();\n    const fanTap = { object:null, x:0, y:0, pointerId:null };\n    renderer.domElement.style.touchAction='none';\n    function fanSetPointer(e){const r=renderer.domElement.getBoundingClientRect();fanPointer.x=((e.clientX-r.left)/r.width)*2-1;fanPointer.y=-((e.clientY-r.top)/r.height)*2+1;fanRaycaster.setFromCamera(fanPointer,camera)}\n    function fanSavePositions(){const saved={};planes.forEach(m=>{if(Number.isInteger(m.userData.index))saved[m.userData.index]={x:m.position.x,y:m.userData.baseY,z:m.position.z}});try{localStorage.setItem('fanGalleryPositions',JSON.stringify(saved))}catch(e){}}\n    const fanDragControls = new DragControls(planes,camera,renderer.domElement);\n    fanDragControls.addEventListener('hoveron',()=>renderer.domElement.style.cursor='grab');\n    fanDragControls.addEventListener('hoveroff',()=>renderer.domElement.style.cursor='default');\n    fanDragControls.addEventListener('dragstart',e=>{controls.enabled=false;renderer.domElement.style.cursor='grabbing';e.object.userData.fanDragging=true});\n    fanDragControls.addEventListener('drag',e=>{e.object.userData.baseY=e.object.position.y});\n    fanDragControls.addEventListener('dragend',e=>{e.object.userData.baseY=e.object.position.y;e.object.userData.fanDragging=false;controls.enabled=true;renderer.domElement.style.cursor='grab';fanSavePositions()});\n    renderer.domElement.addEventListener('pointerdown',e=>{fanSetPointer(e);const hit=fanRaycaster.intersectObjects(planes,false)[0];fanTap.object=hit?hit.object:null;fanTap.x=e.clientX;fanTap.y=e.clientY;fanTap.pointerId=e.pointerId},{capture:true});\n    renderer.domElement.addEventListener('pointerup',e=>{const obj=fanTap.object;const dist=Math.hypot(e.clientX-fanTap.x,e.clientY-fanTap.y);fanTap.object=null;if(obj&&dist<10)window.parent.postMessage({type:'fan-image-tap',index:obj.userData.index},'*')},{capture:true});\n    renderer.domElement.addEventListener('pointercancel',()=>{fanTap.object=null},{capture:true});\n\n    const clock = new THREE.Clock();";
+const interactionCode="const fanRaycaster = new THREE.Raycaster();\n    const fanPointer = new THREE.Vector2();\n    const fanTap = { object:null, x:0, y:0, pointerId:null };\n    renderer.domElement.style.touchAction='none';\n    function fanSetPointer(e){const r=renderer.domElement.getBoundingClientRect();fanPointer.x=((e.clientX-r.left)/r.width)*2-1;fanPointer.y=-((e.clientY-r.top)/r.height)*2+1;fanRaycaster.setFromCamera(fanPointer,camera)}\n    function fanSavePositions(){const saved={};planes.forEach(m=>{if(Number.isInteger(m.userData.index))saved[m.userData.index]={x:m.position.x,y:m.userData.baseY,z:m.position.z}});try{localStorage.setItem('fanGalleryPositions',JSON.stringify(saved))}catch(e){}}\n    const fanDragControls = new DragControls(planes,camera,renderer.domElement);\n    fanDragControls.addEventListener('hoveron',()=>renderer.domElement.style.cursor='grab');\n    fanDragControls.addEventListener('hoveroff',()=>renderer.domElement.style.cursor='default');\n    fanDragControls.addEventListener('dragstart',e=>{controls.enabled=false;renderer.domElement.style.cursor='grabbing';e.object.userData.fanDragging=true;e.object.userData.baseY=e.object.position.y});\n    fanDragControls.addEventListener('drag',e=>{e.object.userData.baseY=e.object.position.y});\n    fanDragControls.addEventListener('dragend',e=>{e.object.userData.baseY=e.object.position.y;e.object.userData.fanDragging=false;controls.enabled=true;renderer.domElement.style.cursor='grab';fanSavePositions()});\n    renderer.domElement.addEventListener('pointerdown',e=>{fanSetPointer(e);const hit=fanRaycaster.intersectObjects(planes,false)[0];fanTap.object=hit?hit.object:null;fanTap.x=e.clientX;fanTap.y=e.clientY;fanTap.pointerId=e.pointerId},{capture:true});\n    renderer.domElement.addEventListener('pointerup',e=>{const obj=fanTap.object;const dist=Math.hypot(e.clientX-fanTap.x,e.clientY-fanTap.y);fanTap.object=null;if(obj&&dist<10)window.parent.postMessage({type:'fan-image-tap',index:obj.userData.index},'*')},{capture:true});\n    renderer.domElement.addEventListener('pointercancel',()=>{fanTap.object=null},{capture:true});\n\n    const clock = new THREE.Clock();";
 async function loadGallery(){
   loadingNote.style.display='block';loadingNote.textContent='PREPARING GALLERY...';frame.srcdoc='';
   try{
@@ -81,7 +84,26 @@ async function loadGallery(){
       .replace('mesh.position.set(data.x, data.y, data.z);',`mesh.position.set(data.x, data.y, data.z);
       try { const saved=JSON.parse(localStorage.getItem('fanGalleryPositions')||'{}')[index]; if(saved) mesh.position.set(saved.x,saved.y,saved.z); } catch(e) {}`)
       .replace('baseY: data.y,','baseY: mesh.position.y,\n        index,')
-      .replace('floatAmp: 0.11 + (index % 2) * 0.05','floatAmp: 0.055 + (index % 2) * 0.025')
+      .replace('floatAmp: 0.11 + (index % 2) * 0.05','floatAmp: 0.045 + (index % 2) * 0.018')
+      .replace(`planes.forEach((mesh) => {
+        const u = mesh.userData;
+        mesh.position.y = u.baseY + Math.sin(t * u.floatSpeed + u.phase) * u.floatAmp;
+        mesh.rotation.y = u.baseRotY + Math.sin(t * 0.2 + u.phase) * 0.035;
+        mesh.rotation.z = Math.sin(t * 0.16 + u.phase * 0.6) * 0.012;
+      });`,`planes.forEach((mesh) => {
+        const u = mesh.userData;
+        if (u.fanDragging) {
+          mesh.rotation.y = THREE.MathUtils.lerp(mesh.rotation.y, u.baseRotY, 0.22);
+          mesh.rotation.z = THREE.MathUtils.lerp(mesh.rotation.z, 0, 0.22);
+          return;
+        }
+        const targetY = u.baseY + Math.sin(t * u.floatSpeed + u.phase) * u.floatAmp;
+        const targetRotY = u.baseRotY + Math.sin(t * 0.2 + u.phase) * 0.028;
+        const targetRotZ = Math.sin(t * 0.16 + u.phase * 0.6) * 0.009;
+        mesh.position.y = THREE.MathUtils.lerp(mesh.position.y, targetY, 0.12);
+        mesh.rotation.y = THREE.MathUtils.lerp(mesh.rotation.y, targetRotY, 0.10);
+        mesh.rotation.z = THREE.MathUtils.lerp(mesh.rotation.z, targetRotZ, 0.10);
+      });`)
       .replace('const clock = new THREE.Clock();',interactionCode)
       .replace('</head>','<style>.ui.title,.ui.hint{display:none!important}</style></head>');
     frame.srcdoc=html;
