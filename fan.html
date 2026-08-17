@@ -17,18 +17,18 @@
 .info{position:fixed;z-index:12;right:22px;bottom:22px;width:min(370px,32vw);padding:18px 19px;border:1px solid var(--line);border-radius:18px;background:var(--panel);backdrop-filter:var(--glass);box-shadow:0 20px 70px rgba(0,0,0,.35)}.info .eyebrow{font:700 9px 'Cinzel',serif;letter-spacing:.27em;color:var(--gold)}.info h2{font-size:17px;margin:6px 0 7px;letter-spacing:.06em}.info p{font-size:11px;line-height:1.75;color:#bbb5c4;margin:0}.actions{display:flex;gap:8px;margin-top:14px}.action,.restore-ui{border:1px solid var(--line);background:rgba(8,8,14,.72);color:#ddd5e2;border-radius:999px;padding:7px 11px;font:600 9px 'Cinzel',serif;letter-spacing:.12em;cursor:pointer;backdrop-filter:var(--glass)}.action:hover,.restore-ui:hover{border-color:rgba(201,162,39,.55);color:#f2df9d}
 .corner{position:fixed;right:22px;top:22px;z-index:12;font:500 9px 'Cinzel',serif;letter-spacing:.16em;color:#7f7a88;text-align:right;line-height:1.7;pointer-events:none}.corner b{color:#c6bfca;font-weight:500}.restore-ui{position:fixed;z-index:30;right:18px;top:18px;opacity:0;pointer-events:none;transform:translateY(-6px);box-shadow:0 12px 40px rgba(0,0,0,.4)}
 body.ui-hidden .brand,body.ui-hidden .nav,body.ui-hidden .info,body.ui-hidden .corner{opacity:0;pointer-events:none}body.ui-hidden .restore-ui{opacity:1;pointer-events:auto;transform:none}
-.loading-note{position:fixed;left:50%;top:50%;z-index:1;transform:translate(-50%,-50%);font:500 10px 'Cinzel',serif;letter-spacing:.25em;color:#77717f;pointer-events:none}
+.loading-note{position:fixed;left:50%;top:50%;z-index:1;transform:translate(-50%,-50%);font:500 10px 'Cinzel',serif;letter-spacing:.25em;color:#77717f;pointer-events:none}.comment-layer{position:fixed;inset:0;z-index:22;pointer-events:none;overflow:hidden}.nico-comment{position:absolute;left:100vw;white-space:nowrap;font-weight:700;letter-spacing:.02em;text-shadow:-2px -2px 0 #000,2px -2px 0 #000,-2px 2px 0 #000,2px 2px 0 #000,0 2px 8px rgba(0,0,0,.9);will-change:transform;animation:nicoFlow var(--duration,8s) linear forwards}@keyframes nicoFlow{from{transform:translateX(0)}to{transform:translateX(calc(-100vw - 130%))}}
 @media(max-width:760px){.brand{top:14px;left:15px}.brand small{display:none}.corner{display:none}.nav{left:10px;right:10px;bottom:10px;top:auto;transform:none;width:auto;padding:8px;display:flex;gap:5px;overflow:auto;border-radius:15px}.nav-head{display:none}.item{min-width:54px;width:54px;height:45px;padding:7px 4px;display:block;text-align:center;border:0;border-radius:10px}.item .num{font-size:11px}.item strong,.item em{display:none}.item.active{transform:none;background:rgba(201,162,39,.12)}.info{left:12px;right:12px;bottom:68px;width:auto;padding:13px 15px}.info h2{font-size:14px}.info p{font-size:10px;line-height:1.6}.actions{margin-top:9px}.action{padding:6px 9px}.restore-ui{right:12px;top:12px;padding:8px 10px}.vignette{background:linear-gradient(to bottom,rgba(5,5,10,.25),transparent 22%,transparent 70%,rgba(5,5,10,.64))}}
 </style>
 </head>
 <body>
 <div class="loading-note" id="loadingNote">PREPARING GALLERY...</div>
 <div class="stage"><iframe id="galleryFrame" title="3D Gallery"></iframe></div>
-<div class="vignette"></div><div class="grain"></div>
+<div class="vignette"></div><div class="grain"></div><div class="comment-layer" id="commentLayer" aria-live="polite"></div>
 <header class="brand"><div class="kicker">UNOFFICIAL FAN ARCHIVE</div><h1>カツドンチャンネル</h1><small>MEMORY / SCENE / VISUAL COLLECTION</small></header>
-<div class="corner"><b>FAN ARCHIVE 001</b><br>DRAG / ZOOM / EXPLORE</div>
+<div class="corner"><b>FAN ARCHIVE 001</b><br>DRAG IMAGE / TAP QUOTE / ZOOM</div>
 <nav class="nav" id="nav"><div class="nav-head"><span>ARCHIVE INDEX</span><i class="badge">6 FILES</i></div></nav>
-<section class="info" id="info"><div class="eyebrow" id="eyebrow">ARCHIVE 01</div><h2 id="title">KEY VISUAL</h2><p id="desc">画像同士が重なりにくいワイドな3D配置で、ファン目線のビジュアルをゆっくり巡れます。</p><div class="actions"><button class="action" id="random">RANDOM</button><button class="action" id="quiet">UI HIDE</button></div></section>
+<section class="info" id="info"><div class="eyebrow" id="eyebrow">ARCHIVE 01</div><h2 id="title">KEY VISUAL</h2><p id="desc">画像同士が重なりにくいワイドな3D配置で、ファン目線のビジュアルをゆっくり巡れます。</p><div class="actions"><button class="action" id="random">RANDOM</button><button class="action" id="resetLayout">RESET LAYOUT</button><button class="action" id="quiet">UI HIDE</button></div></section>
 <button class="restore-ui" id="restoreUi" type="button" aria-label="UIを再表示">SHOW UI</button>
 <script>
 const archive=[
@@ -39,15 +39,24 @@ const archive=[
 ['ARCHIVE CLIP','繰り返し見返したくなるカットを集めていくためのファイル。'],
 ['COMMENT STREAM','ファン同士で語りたくなるポイントを残すためのメモ枠。']
 ];
-const nav=document.getElementById('nav'),title=document.getElementById('title'),desc=document.getElementById('desc'),eye=document.getElementById('eyebrow'),frame=document.getElementById('galleryFrame'),loadingNote=document.getElementById('loadingNote');
-let current=0;
+const nav=document.getElementById('nav'),title=document.getElementById('title'),desc=document.getElementById('desc'),eye=document.getElementById('eyebrow'),frame=document.getElementById('galleryFrame'),loadingNote=document.getElementById('loadingNote'),commentLayer=document.getElementById('commentLayer');
+const quotePool=[
+'あなたのインナーチャイルド、今日も元気？','尊厳が破壊される','来るなら、来い','次世代を代表するセルフエクスプレッショナー','店味','アイブライト','宇宙の采配','感謝感激雨嵐','草回避www','のっぴきならない事情','成ったか','寝方ミスった','みんな楽しんでくれててよかった','睡眠が壊れる','ちゃんと出来るように頑張る。','すみ！','にんげんは しっぱいするもの まなぶもの'
+];
+const commentColors=['#ffffff','#ffe76a','#7de8ff','#ff9de2','#a8ff9f','#ffb36a'];
+let current=0,lastQuote=-1;
+function emitQuote(){let n=lastQuote;while(n===lastQuote)n=Math.floor(Math.random()*quotePool.length);lastQuote=n;const el=document.createElement('div');el.className='nico-comment';el.textContent=quotePool[n];el.style.top=`${8+Math.random()*72}%`;el.style.fontSize=`${18+Math.floor(Math.random()*12)}px`;el.style.color=commentColors[Math.floor(Math.random()*commentColors.length)];el.style.setProperty('--duration',`${6.2+Math.random()*3.8}s`);commentLayer.appendChild(el);el.addEventListener('animationend',()=>el.remove(),{once:true});}
+
 archive.forEach((a,i)=>{const b=document.createElement('button');b.className='item'+(i===0?' active':'');b.innerHTML=`<span class="num">0${i+1}</span><span><strong>${a[0]}</strong><em>${a[1]}</em></span>`;b.onclick=()=>select(i);nav.appendChild(b)});
 function select(i){current=i;[...nav.querySelectorAll('.item')].forEach((x,n)=>x.classList.toggle('active',n===i));eye.textContent=`ARCHIVE 0${i+1}`;title.textContent=archive[i][0];desc.textContent=archive[i][1]}
 function setUiHidden(hidden){document.body.classList.toggle('ui-hidden',hidden);document.getElementById('quiet').textContent=hidden?'UI SHOW':'UI HIDE'}
 document.getElementById('random').onclick=()=>{let n=current;while(n===current)n=Math.floor(Math.random()*archive.length);select(n)};
+document.getElementById('resetLayout').onclick=()=>{localStorage.removeItem('fanGalleryPositions');loadGallery()};
 document.getElementById('quiet').onclick=()=>setUiHidden(true);
 document.getElementById('restoreUi').onclick=()=>setUiHidden(false);
 addEventListener('keydown',e=>{if(e.key>='1'&&e.key<='6')select(Number(e.key)-1);if(e.key.toLowerCase()==='r')document.getElementById('random').click();if(e.key.toLowerCase()==='h')setUiHidden(!document.body.classList.contains('ui-hidden'));if(e.key==='Escape')setUiHidden(false)});
+addEventListener('message',e=>{if(e.source!==frame.contentWindow||e.data?.type!=='fan-image-tap')return;const i=Number(e.data.index);if(Number.isInteger(i)&&i>=0&&i<archive.length)select(i);emitQuote()});
+
 const spaciousLayout=`const imageData = [
   {'x': -5.8, 'y': 2.6, 'z': 0.0, 'scale': 2.8, 'rotY': 0.12},
   {'x':  0.0, 'y': 2.6, 'z': -0.7, 'scale': 3.0, 'rotY': 0.0},
@@ -56,7 +65,9 @@ const spaciousLayout=`const imageData = [
   {'x':  0.0, 'y': -2.3, 'z': -0.2, 'scale': 2.2, 'rotY': 0.0},
   {'x':  5.5, 'y': -2.3, 'z': 0.7, 'scale': 2.5, 'rotY': -0.10}
 ];`;
+const interactionCode="const fanRaycaster = new THREE.Raycaster();\n    const fanPointer = new THREE.Vector2();\n    const fanDragPlane = new THREE.Plane();\n    const fanHit = new THREE.Vector3();\n    const fanOffset = new THREE.Vector3();\n    const fanCameraDir = new THREE.Vector3();\n    let fanSelected = null, fanPointerId = null, fanStartX = 0, fanStartY = 0, fanMoved = false;\n    renderer.domElement.style.touchAction = 'none';\n    function fanSetPointer(e){const r=renderer.domElement.getBoundingClientRect();fanPointer.x=((e.clientX-r.left)/r.width)*2-1;fanPointer.y=-((e.clientY-r.top)/r.height)*2+1;fanRaycaster.setFromCamera(fanPointer,camera)}\n    function fanSavePositions(){const saved={};planes.forEach(m=>{if(Number.isInteger(m.userData.index))saved[m.userData.index]={x:m.position.x,y:m.userData.baseY,z:m.position.z}});try{localStorage.setItem('fanGalleryPositions',JSON.stringify(saved))}catch(e){}}\n    renderer.domElement.addEventListener('pointerdown',e=>{fanSetPointer(e);const hit=fanRaycaster.intersectObjects(planes,false)[0];if(!hit)return;e.preventDefault();e.stopPropagation();fanSelected=hit.object;fanPointerId=e.pointerId;fanStartX=e.clientX;fanStartY=e.clientY;fanMoved=false;camera.getWorldDirection(fanCameraDir);fanDragPlane.setFromNormalAndCoplanarPoint(fanCameraDir,fanSelected.position);fanRaycaster.ray.intersectPlane(fanDragPlane,fanHit);fanOffset.copy(fanSelected.position).sub(fanHit);controls.enabled=false;renderer.domElement.setPointerCapture?.(e.pointerId);renderer.domElement.style.cursor='grabbing'},{capture:true});\n    renderer.domElement.addEventListener('pointermove',e=>{fanSetPointer(e);if(fanSelected){if(Math.hypot(e.clientX-fanStartX,e.clientY-fanStartY)>6)fanMoved=true;if(fanRaycaster.ray.intersectPlane(fanDragPlane,fanHit)){fanSelected.position.copy(fanHit).add(fanOffset);fanSelected.userData.baseY=fanSelected.position.y}return}const hover=fanRaycaster.intersectObjects(planes,false)[0];renderer.domElement.style.cursor=hover?'grab':'default'});\n    function fanEndPointer(e){if(!fanSelected)return;const selected=fanSelected;const wasMoved=fanMoved;fanSelected=null;fanPointerId=null;controls.enabled=true;renderer.domElement.releasePointerCapture?.(e.pointerId);renderer.domElement.style.cursor='grab';selected.userData.baseY=selected.position.y;fanSavePositions();if(!wasMoved)window.parent.postMessage({type:'fan-image-tap',index:selected.userData.index},'*')}\n    renderer.domElement.addEventListener('pointerup',fanEndPointer,{capture:true});\n    renderer.domElement.addEventListener('pointercancel',fanEndPointer,{capture:true});\n\n    const clock = new THREE.Clock();";
 async function loadGallery(){
+  loadingNote.style.display='block';loadingNote.textContent='PREPARING GALLERY...';frame.srcdoc='';
   try{
     const res=await fetch('./index.html',{cache:'no-store'});if(!res.ok)throw new Error(`HTTP ${res.status}`);
     let html=await res.text();
@@ -65,7 +76,11 @@ async function loadGallery(){
     html=html.replace(pattern,spaciousLayout)
       .replace('camera.position.set(0, 1.5, 13);','camera.position.set(0, 0.2, 16.5);')
       .replace('controls.target.set(0, 0.6, 0);','controls.target.set(0, 0.1, 0);')
+      .replace('mesh.position.set(data.x, data.y, data.z);',`mesh.position.set(data.x, data.y, data.z);
+      try { const saved=JSON.parse(localStorage.getItem('fanGalleryPositions')||'{}')[index]; if(saved) mesh.position.set(saved.x,saved.y,saved.z); } catch(e) {}`)
+      .replace('baseY: data.y,','baseY: mesh.position.y,\n        index,')
       .replace('floatAmp: 0.11 + (index % 2) * 0.05','floatAmp: 0.055 + (index % 2) * 0.025')
+      .replace('const clock = new THREE.Clock();',interactionCode)
       .replace('</head>','<style>.ui.title,.ui.hint{display:none!important}</style></head>');
     frame.srcdoc=html;
     frame.addEventListener('load',()=>{loadingNote.style.display='none'},{once:true});
