@@ -18,7 +18,7 @@
 .info{position:fixed;z-index:12;right:22px;bottom:22px;width:min(370px,32vw);padding:18px 19px;border:1px solid var(--line);border-radius:18px;background:var(--panel);backdrop-filter:var(--glass);box-shadow:0 20px 70px rgba(0,0,0,.35)}.info .eyebrow{font:700 9px 'Cinzel',serif;letter-spacing:.27em;color:var(--gold)}.info h2{font-size:17px;margin:6px 0 7px;letter-spacing:.06em}.info p{font-size:11px;line-height:1.75;color:#bbb5c4;margin:0}.actions{display:flex;gap:8px;margin-top:14px}.action,.restore-ui{border:1px solid var(--line);background:rgba(8,8,14,.72);color:#ddd5e2;border-radius:999px;padding:7px 11px;font:600 9px 'Cinzel',serif;letter-spacing:.12em;cursor:pointer;backdrop-filter:var(--glass)}.action:hover,.restore-ui:hover{border-color:rgba(201,162,39,.55);color:#f2df9d}
 .corner{position:fixed;right:22px;top:22px;z-index:12;font:500 9px 'Cinzel',serif;letter-spacing:.16em;color:#7f7a88;text-align:right;line-height:1.7;pointer-events:none}.corner b{color:#c6bfca;font-weight:500}.restore-ui{position:fixed;z-index:30;right:18px;top:18px;opacity:0;pointer-events:none;transform:translateY(-6px);box-shadow:0 12px 40px rgba(0,0,0,.4)}
 body.ui-hidden .brand,body.ui-hidden .nav,body.ui-hidden .info,body.ui-hidden .corner{opacity:0;pointer-events:none}body.ui-hidden .restore-ui{opacity:1;pointer-events:auto;transform:none}
-.loading-note{position:fixed;left:50%;top:50%;z-index:1;transform:translate(-50%,-50%);font:500 10px 'Cinzel',serif;letter-spacing:.25em;color:#77717f;pointer-events:none}.comment-layer{position:fixed;inset:0;z-index:22;pointer-events:none;overflow:hidden}.nico-comment{position:absolute;left:100vw;white-space:nowrap;font-weight:700;letter-spacing:.02em;text-shadow:-2px -2px 0 #000,2px -2px 0 #000,-2px 2px 0 #000,2px 2px 0 #000,0 2px 8px rgba(0,0,0,.9);will-change:transform;animation:nicoFlow var(--duration,8s) linear forwards}@keyframes nicoFlow{from{transform:translateX(0)}to{transform:translateX(calc(-100vw - 130%))}}
+.loading-note{position:fixed;left:50%;top:50%;z-index:1;transform:translate(-50%,-50%);font:500 10px 'Cinzel',serif;letter-spacing:.25em;color:#77717f;pointer-events:none}.comment-layer{position:fixed;inset:0;z-index:22;pointer-events:none;overflow:hidden}.nico-comment{position:absolute;left:100vw;white-space:nowrap;font-weight:700;letter-spacing:.02em;text-shadow:-2px -2px 0 #000,2px -2px 0 #000,-2px 2px 0 #000,2px 2px 0 #000,0 2px 8px rgba(0,0,0,.9);will-change:transform;animation:nicoFlow var(--duration,8s) linear forwards}@keyframes nicoFlow{from{transform:translateX(0)}to{transform:translateX(calc(-100vw - 130%))}}.nico-comment.flood{font-weight:800;text-shadow:-2px -2px 0 #000,2px -2px 0 #000,-2px 2px 0 #000,2px 2px 0 #000,0 3px 12px rgba(0,0,0,.95)}
 @media(max-width:760px){.brand{top:14px;left:15px}.brand small{display:none}.corner{display:none}.nav{left:10px;right:10px;bottom:10px;top:auto;transform:none;width:auto;padding:8px;display:flex;gap:5px;overflow:auto;border-radius:15px}.nav-head{display:none}.item{min-width:54px;width:54px;height:45px;padding:7px 4px;display:block;text-align:center;border:0;border-radius:10px}.item .num{font-size:11px}.item strong,.item em{display:none}.item.active{transform:none;background:rgba(201,162,39,.12)}.info{left:12px;right:12px;bottom:68px;width:auto;padding:13px 15px}.info h2{font-size:14px}.info p{font-size:10px;line-height:1.6}.actions{margin-top:9px}.action{padding:6px 9px}.restore-ui{right:12px;top:12px;padding:8px 10px}.vignette{background:linear-gradient(to bottom,rgba(5,5,10,.25),transparent 22%,transparent 70%,rgba(5,5,10,.64))}}
 </style>
 </head>
@@ -28,12 +28,12 @@ body.ui-hidden .brand,body.ui-hidden .nav,body.ui-hidden .info,body.ui-hidden .c
 <div class="stage"><iframe id="galleryFrame" title="3D Gallery"></iframe></div>
 <div class="vignette"></div><div class="grain"></div><div class="comment-layer" id="commentLayer" aria-live="polite"></div>
 <header class="brand"><div class="kicker">UNOFFICIAL FAN ARCHIVE</div><h1>カツドンチャンネル</h1><small>MEMORY / SCENE / VISUAL COLLECTION</small></header>
-<div class="corner"><b>FAN ARCHIVE 006</b><br>DRAG IMAGE / TAP QUOTE / ZOOM<br><span style="opacity:.55">BUILD 006</span></div>
+<div class="corner"><b>FAN ARCHIVE 007</b><br>DRAG IMAGE / TAP QUOTE / ZOOM<br><span style="opacity:.55">BUILD 007</span></div>
 <nav class="nav" id="nav"><div class="nav-head"><span>ARCHIVE INDEX</span><i class="badge">6 FILES</i></div></nav>
 <section class="info" id="info"><div class="eyebrow" id="eyebrow">ARCHIVE 01</div><h2 id="title">KEY VISUAL</h2><p id="desc">画像同士が重なりにくいワイドな3D配置で、ファン目線のビジュアルをゆっくり巡れます。</p><div class="actions"><button class="action" id="random">RANDOM</button><button class="action" id="resetLayout">RESET LAYOUT</button><button class="action" id="quiet">UI HIDE</button></div></section>
 <button class="restore-ui" id="restoreUi" type="button" aria-label="UIを再表示">SHOW UI</button>
 <script>
-const FAN_BUILD='20260817-1855-v6';
+const FAN_BUILD='20260817-1805-v7';
 const archive=[
 ['KEY VISUAL','まずはここから。画像同士の間隔を広げた3D展示室でメインビジュアルを楽しめます。'],
 ['PROFILE SHEET','人物の雰囲気や表情、衣装、空気感をじっくり見るためのファン向け記録。'],
@@ -47,15 +47,15 @@ const quotePool=[
 'あなたのインナーチャイルド、今日も元気？','尊厳が破壊される','来るなら、来い','次世代を代表するセルフエクスプレッショナー','店味','アイブライト','宇宙の采配','感謝感激雨嵐','草回避www','のっぴきならない事情','成ったか','寝方ミスった','みんな楽しんでくれててよかった','睡眠が壊れる','ちゃんと出来るように頑張る。','すみ！','にんげんは しっぱいするもの まなぶもの'
 ];
 const commentColors=['#ffffff','#ffe76a','#7de8ff','#ff9de2','#a8ff9f','#ffb36a'];
-let current=0,lastQuote=-1,lastTappedImage=-1,sameImageTapCount=0;
+let current=-1,lastQuote=-1,lastTappedImage=-1,sameImageTapCount=0;
 function makeComment(text,{top=null,size=null,color=null,duration=null,delay=0,className=''}={}){const el=document.createElement('div');el.className='nico-comment'+(className?' '+className:'');el.textContent=text;el.style.top=top??`${8+Math.random()*72}%`;el.style.fontSize=size??`${18+Math.floor(Math.random()*12)}px`;el.style.color=color??commentColors[Math.floor(Math.random()*commentColors.length)];el.style.setProperty('--duration',duration??`${2.05+Math.random()*1.25}s`);if(delay)el.style.animationDelay=`-${delay}s`;commentLayer.appendChild(el);el.addEventListener('animationend',()=>el.remove(),{once:true});return el}
-function emitQuote(){let n=lastQuote;while(n===lastQuote)n=Math.floor(Math.random()*quotePool.length);lastQuote=n;makeComment(quotePool[n])}
-function floodMoralQuote(){const text='モラルのある盗撮をお願いします';const rows=18;for(let row=0;row<rows;row++){for(let lane=0;lane<3;lane++){const duration=2.25+Math.random()*.75;makeComment(text,{top:`${3+row*(94/(rows-1))}%`,size:`${16+Math.floor(Math.random()*12)}px`,color:commentColors[(row+lane)%commentColors.length],duration:`${duration}s`,delay:Math.random()*duration,className:'moral-flood'})}}}
+function emitQuote(){let n=lastQuote;while(n===lastQuote)n=Math.floor(Math.random()*quotePool.length);lastQuote=n;makeComment(quotePool[n]);}
+function floodMoralQuote(){const text='モラルのある盗撮をお願いします';const rows=18;for(let r=0;r<rows;r++){for(let c=0;c<3;c++){const top=`${2+r*(94/(rows-1))}%`;makeComment(text,{top,size:`${18+(r%3)*5}px`,color:commentColors[(r+c)%commentColors.length],duration:`${2.15+((r+c)%4)*0.22}s`,delay:c*0.5,className:'flood'})}}}
 function handleImageTap(i){if(i===lastTappedImage)sameImageTapCount+=1;else{lastTappedImage=i;sameImageTapCount=1}if(sameImageTapCount>=3){sameImageTapCount=0;lastTappedImage=-1;floodMoralQuote()}else emitQuote()}
 
 archive.forEach((a,i)=>{const b=document.createElement('button');b.className='item'+(i===0?' active':'');b.innerHTML=`<span class="num">0${i+1}</span><span><strong>${a[0]}</strong><em>${a[1]}</em></span>`;b.onclick=()=>select(i);nav.appendChild(b)});
 function focusCurrent(){frame.contentWindow?.postMessage({type:'fan-focus-image',index:current},'*')}
-function select(i){current=i;[...nav.querySelectorAll('.item')].forEach((x,n)=>x.classList.toggle('active',n===i));eye.textContent=`ARCHIVE 0${i+1}`;title.textContent=archive[i][0];desc.textContent=archive[i][1];focusCurrent()}
+function select(i){const changed=current!==i;current=i;[...nav.querySelectorAll('.item')].forEach((x,n)=>x.classList.toggle('active',n===i));eye.textContent=`ARCHIVE 0${i+1}`;title.textContent=archive[i][0];desc.textContent=archive[i][1];if(changed)focusCurrent()}
 function setUiHidden(hidden){document.body.classList.toggle('ui-hidden',hidden);document.getElementById('quiet').textContent=hidden?'UI SHOW':'UI HIDE'}
 document.getElementById('random').onclick=()=>{let n=current;while(n===current)n=Math.floor(Math.random()*archive.length);select(n)};
 document.getElementById('resetLayout').onclick=()=>{localStorage.removeItem('fanGalleryPositions');loadGallery()};
@@ -84,12 +84,13 @@ const interactionCode=`const fanRaycaster = new THREE.Raycaster();
     const fanDragControls = new DragControls(planes,camera,renderer.domElement);
     fanDragControls.addEventListener('hoveron',()=>renderer.domElement.style.cursor='grab');
     fanDragControls.addEventListener('hoveroff',()=>renderer.domElement.style.cursor='default');
-    fanDragControls.addEventListener('dragstart',e=>{controls.enabled=false;renderer.domElement.style.cursor='grabbing';e.object.userData.fanDragging=true;e.object.userData.baseY=e.object.position.y;e.object.userData.baseX=e.object.position.x;e.object.userData.baseZ=e.object.position.z;fanFocusedIndex=e.object.userData.index;});
-    fanDragControls.addEventListener('drag',e=>{e.object.userData.baseX=e.object.position.x;e.object.userData.baseY=e.object.position.y;e.object.userData.baseZ=e.object.position.z;});
-    fanDragControls.addEventListener('dragend',e=>{e.object.userData.baseX=e.object.position.x;e.object.userData.baseY=e.object.position.y;e.object.userData.baseZ=e.object.position.z;e.object.userData.fanDragging=false;controls.enabled=true;renderer.domElement.style.cursor='grab';fanSavePositions()});
+    fanDragControls.addEventListener('dragstart',e=>{const u=e.object.userData;controls.enabled=false;renderer.domElement.style.cursor='grabbing';u.fanDragging=true;u.dragOffsetX=e.object.position.x-u.baseX;u.dragOffsetY=e.object.position.y-u.baseY;u.dragOffsetZ=e.object.position.z-u.baseZ;fanFocusedIndex=u.index;});
+    fanDragControls.addEventListener('drag',e=>{const u=e.object.userData;u.baseX=e.object.position.x-u.dragOffsetX;u.baseY=e.object.position.y-u.dragOffsetY;u.baseZ=e.object.position.z-u.dragOffsetZ;});
+    fanDragControls.addEventListener('dragend',e=>{const u=e.object.userData;u.baseX=e.object.position.x-u.dragOffsetX;u.baseY=e.object.position.y-u.dragOffsetY;u.baseZ=e.object.position.z-u.dragOffsetZ;u.fanDragging=false;u.dragOffsetX=u.dragOffsetY=u.dragOffsetZ=0;controls.enabled=true;renderer.domElement.style.cursor='grab';fanSavePositions()});
     renderer.domElement.addEventListener('pointerdown',e=>{fanSetPointer(e);const hit=fanRaycaster.intersectObjects(planes,false)[0];fanTap.object=hit?hit.object:null;fanTap.x=e.clientX;fanTap.y=e.clientY;fanTap.pointerId=e.pointerId});
     renderer.domElement.addEventListener('pointerup',e=>{if(fanTap.pointerId!==e.pointerId||!fanTap.object)return;const moved=Math.hypot(e.clientX-fanTap.x,e.clientY-fanTap.y)>8;const target=fanTap.object;fanTap.object=null;fanTap.pointerId=null;if(!moved&&!target.userData.fanDragging){fanFocusedIndex=target.userData.index;window.parent.postMessage({type:'fan-image-tap',index:target.userData.index},'*')}});
     renderer.domElement.addEventListener('pointercancel',()=>{fanTap.object=null;fanTap.pointerId=null});
+    renderer.domElement.addEventListener('dblclick',e=>{e.preventDefault();e.stopPropagation();},{passive:false});
 
     const clock = new THREE.Clock();`;
 async function loadGallery(){
