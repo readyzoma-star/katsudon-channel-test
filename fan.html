@@ -7,10 +7,11 @@
 <meta name="description" content="カツドンチャンネルを楽しむための非公式ファンアーカイブ。重なりを抑えた3Dギャラリーを巡りながら記録を眺めるファンページ。">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
-:root{--bg:#05050a;--panel:rgba(7,7,14,.72);--line:rgba(240,230,208,.16);--gold:#c9a227;--text:#eee8dc;--muted:#8f8a99;--glass:blur(16px)}
+:root{--bg:#dff1ff;--panel:rgba(12,22,30,.66);--line:rgba(255,255,255,.28);--gold:#d3a83d;--text:#f7f9fb;--muted:#d9e4ea;--glass:blur(16px)}
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-serif;overflow:hidden}
-.stage{position:fixed;inset:0}.stage iframe{width:100%;height:100%;border:0;display:block;background:#05050a}
-.vignette{position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 48%,transparent 20%,rgba(5,5,10,.13) 64%,rgba(5,5,10,.72) 100%);z-index:2}.grain{position:fixed;inset:0;z-index:3;pointer-events:none;opacity:.09;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E")}
+.zoo-bg{position:fixed;inset:0;z-index:0;background:linear-gradient(180deg,#a7dcff 0%,#dff4ff 46%,#eff8ef 46%,#eff8ef 100%);overflow:hidden}.zoo-bg:before{content:'';position:absolute;inset:0;background:radial-gradient(100% 50% at 50% 100%,rgba(117,171,97,.9) 0 48%,transparent 49%),radial-gradient(60% 28% at 18% 85%,#82be69 0 48%,transparent 49%),radial-gradient(55% 30% at 82% 84%,#75b55f 0 48%,transparent 49%),radial-gradient(30px 30px at 9% 61%,#58924d 0 96%,transparent 100%),radial-gradient(38px 38px at 16% 57%,#4e8645 0 96%,transparent 100%),radial-gradient(28px 28px at 86% 60%,#5d9950 0 96%,transparent 100%),radial-gradient(36px 36px at 92% 56%,#4f8445 0 96%,transparent 100%),linear-gradient(180deg,transparent 0 62%,#9acb83 62% 71%,#bddda6 71% 100%)}.zoo-bg:after{content:'八木山動物公園';position:absolute;left:50%;bottom:19%;transform:translateX(-50%);padding:12px 26px;border-radius:16px;background:rgba(255,252,242,.92);border:3px solid #836633;color:#5f4b1f;font-weight:700;letter-spacing:.18em;box-shadow:0 10px 28px rgba(63,59,35,.18)}.zoo-path{position:fixed;left:50%;bottom:-6vh;transform:translateX(-50%);width:min(48vw,620px);height:34vh;z-index:0;background:linear-gradient(180deg,rgba(235,226,205,.2),rgba(221,205,171,.86));clip-path:polygon(44% 0,56% 0,100% 100%,0 100%);filter:blur(.3px)}
+.stage{position:fixed;inset:0;z-index:1}.stage iframe{width:100%;height:100%;border:0;display:block;background:transparent}
+.vignette{position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 48%,transparent 22%,rgba(154,201,160,.06) 64%,rgba(68,97,59,.28) 100%);z-index:2}.grain{position:fixed;inset:0;z-index:3;pointer-events:none;opacity:.09;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E")}
 .brand,.nav,.info,.corner{transition:opacity .25s ease,transform .25s ease}.brand{position:fixed;z-index:10;top:20px;left:24px;pointer-events:none;text-shadow:0 2px 16px #000}.brand .kicker{font:500 10px/1 'Cinzel',serif;letter-spacing:.34em;color:var(--gold);margin-bottom:8px}.brand h1{font-size:clamp(18px,2.1vw,30px);line-height:1.15;letter-spacing:.09em;margin:0}.brand small{display:block;margin-top:6px;font:500 10px/1.4 'Cinzel',serif;letter-spacing:.24em;color:var(--muted)}
 .nav{position:fixed;z-index:12;left:22px;top:50%;transform:translateY(-42%);width:min(290px,27vw);padding:16px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,rgba(10,10,18,.82),rgba(8,8,14,.48));backdrop-filter:var(--glass);box-shadow:0 20px 70px rgba(0,0,0,.35)}.nav-head{display:flex;align-items:center;justify-content:space-between;padding:0 3px 12px}.nav-head span{font:700 10px/1 'Cinzel',serif;letter-spacing:.25em;color:#aaa3b4}.badge{padding:4px 7px;border:1px solid rgba(201,162,39,.3);border-radius:999px;font-size:9px;color:var(--gold)}
 .item{appearance:none;width:100%;border:0;border-top:1px solid rgba(255,255,255,.055);background:transparent;color:inherit;text-align:left;padding:12px 7px;cursor:pointer;display:grid;grid-template-columns:28px 1fr;gap:8px;transition:.25s}.item:first-of-type{border-top:0}.item:hover,.item.active{transform:translateX(3px);background:linear-gradient(90deg,rgba(201,162,39,.09),transparent)}.num{font:700 10px 'Cinzel',serif;color:var(--gold);padding-top:2px}.item strong{display:block;font-size:12px;letter-spacing:.06em}.item em{display:block;font-style:normal;font-size:10px;color:var(--muted);margin-top:3px;line-height:1.45}
@@ -22,16 +23,17 @@ body.ui-hidden .brand,body.ui-hidden .nav,body.ui-hidden .info,body.ui-hidden .c
 </style>
 </head>
 <body>
+<div class="zoo-bg" aria-hidden="true"></div><div class="zoo-path" aria-hidden="true"></div>
 <div class="loading-note" id="loadingNote">PREPARING GALLERY...</div>
 <div class="stage"><iframe id="galleryFrame" title="3D Gallery"></iframe></div>
 <div class="vignette"></div><div class="grain"></div><div class="comment-layer" id="commentLayer" aria-live="polite"></div>
 <header class="brand"><div class="kicker">UNOFFICIAL FAN ARCHIVE</div><h1>カツドンチャンネル</h1><small>MEMORY / SCENE / VISUAL COLLECTION</small></header>
-<div class="corner"><b>FAN ARCHIVE 005</b><br>DRAG IMAGE / TAP QUOTE / ZOOM<br><span style="opacity:.55">BUILD 005</span></div>
+<div class="corner"><b>FAN ARCHIVE 006</b><br>DRAG IMAGE / TAP QUOTE / ZOOM<br><span style="opacity:.55">BUILD 006</span></div>
 <nav class="nav" id="nav"><div class="nav-head"><span>ARCHIVE INDEX</span><i class="badge">6 FILES</i></div></nav>
 <section class="info" id="info"><div class="eyebrow" id="eyebrow">ARCHIVE 01</div><h2 id="title">KEY VISUAL</h2><p id="desc">画像同士が重なりにくいワイドな3D配置で、ファン目線のビジュアルをゆっくり巡れます。</p><div class="actions"><button class="action" id="random">RANDOM</button><button class="action" id="resetLayout">RESET LAYOUT</button><button class="action" id="quiet">UI HIDE</button></div></section>
 <button class="restore-ui" id="restoreUi" type="button" aria-label="UIを再表示">SHOW UI</button>
 <script>
-const FAN_BUILD='20260817-1740-v5';
+const FAN_BUILD='20260817-1855-v6';
 const archive=[
 ['KEY VISUAL','まずはここから。画像同士の間隔を広げた3D展示室でメインビジュアルを楽しめます。'],
 ['PROFILE SHEET','人物の雰囲気や表情、衣装、空気感をじっくり見るためのファン向け記録。'],
@@ -52,7 +54,8 @@ function floodMoralQuote(){const text='モラルのある盗撮をお願いし�
 function handleImageTap(i){if(i===lastTappedImage)sameImageTapCount+=1;else{lastTappedImage=i;sameImageTapCount=1}if(sameImageTapCount>=3){sameImageTapCount=0;lastTappedImage=-1;floodMoralQuote()}else emitQuote()}
 
 archive.forEach((a,i)=>{const b=document.createElement('button');b.className='item'+(i===0?' active':'');b.innerHTML=`<span class="num">0${i+1}</span><span><strong>${a[0]}</strong><em>${a[1]}</em></span>`;b.onclick=()=>select(i);nav.appendChild(b)});
-function select(i){current=i;[...nav.querySelectorAll('.item')].forEach((x,n)=>x.classList.toggle('active',n===i));eye.textContent=`ARCHIVE 0${i+1}`;title.textContent=archive[i][0];desc.textContent=archive[i][1]}
+function focusCurrent(){frame.contentWindow?.postMessage({type:'fan-focus-image',index:current},'*')}
+function select(i){current=i;[...nav.querySelectorAll('.item')].forEach((x,n)=>x.classList.toggle('active',n===i));eye.textContent=`ARCHIVE 0${i+1}`;title.textContent=archive[i][0];desc.textContent=archive[i][1];focusCurrent()}
 function setUiHidden(hidden){document.body.classList.toggle('ui-hidden',hidden);document.getElementById('quiet').textContent=hidden?'UI SHOW':'UI HIDE'}
 document.getElementById('random').onclick=()=>{let n=current;while(n===current)n=Math.floor(Math.random()*archive.length);select(n)};
 document.getElementById('resetLayout').onclick=()=>{localStorage.removeItem('fanGalleryPositions');loadGallery()};
@@ -69,7 +72,26 @@ const spaciousLayout=`const imageData = [
   {'x':  0.0, 'y': -2.3, 'z': -0.2, 'scale': 2.2, 'rotY': 0.0},
   {'x':  5.5, 'y': -2.3, 'z': 0.7, 'scale': 2.5, 'rotY': -0.10}
 ];`;
-const interactionCode="const fanRaycaster = new THREE.Raycaster();\n    const fanPointer = new THREE.Vector2();\n    const fanTap = { object:null, x:0, y:0, pointerId:null };\n    renderer.domElement.style.touchAction='none';\n    function fanSetPointer(e){const r=renderer.domElement.getBoundingClientRect();fanPointer.x=((e.clientX-r.left)/r.width)*2-1;fanPointer.y=-((e.clientY-r.top)/r.height)*2+1;fanRaycaster.setFromCamera(fanPointer,camera)}\n    function fanSavePositions(){const saved={};planes.forEach(m=>{if(Number.isInteger(m.userData.index))saved[m.userData.index]={x:m.position.x,y:m.userData.baseY,z:m.position.z}});try{localStorage.setItem('fanGalleryPositions',JSON.stringify(saved))}catch(e){}}\n    const fanDragControls = new DragControls(planes,camera,renderer.domElement);\n    fanDragControls.addEventListener('hoveron',()=>renderer.domElement.style.cursor='grab');\n    fanDragControls.addEventListener('hoveroff',()=>renderer.domElement.style.cursor='default');\n    fanDragControls.addEventListener('dragstart',e=>{controls.enabled=false;renderer.domElement.style.cursor='grabbing';e.object.userData.fanDragging=true;e.object.userData.baseY=e.object.position.y});\n    fanDragControls.addEventListener('drag',e=>{e.object.userData.baseY=e.object.position.y});\n    fanDragControls.addEventListener('dragend',e=>{e.object.userData.baseY=e.object.position.y;e.object.userData.fanDragging=false;controls.enabled=true;renderer.domElement.style.cursor='grab';fanSavePositions()});\n    renderer.domElement.addEventListener('pointerdown',e=>{fanSetPointer(e);const hit=fanRaycaster.intersectObjects(planes,false)[0];fanTap.object=hit?hit.object:null;fanTap.x=e.clientX;fanTap.y=e.clientY;fanTap.pointerId=e.pointerId},{capture:true});\n    renderer.domElement.addEventListener('pointerup',e=>{const obj=fanTap.object;const dist=Math.hypot(e.clientX-fanTap.x,e.clientY-fanTap.y);fanTap.object=null;if(obj&&dist<10)window.parent.postMessage({type:'fan-image-tap',index:obj.userData.index},'*')},{capture:true});\n    renderer.domElement.addEventListener('pointercancel',()=>{fanTap.object=null},{capture:true});\n\n    const clock = new THREE.Clock();";
+const interactionCode=`const fanRaycaster = new THREE.Raycaster();
+    const fanPointer = new THREE.Vector2();
+    const fanTap = { object:null, x:0, y:0, pointerId:null };
+    let fanFocusedIndex = 0;
+    renderer.domElement.style.touchAction='none';
+    function fanSetPointer(e){const r=renderer.domElement.getBoundingClientRect();fanPointer.x=((e.clientX-r.left)/r.width)*2-1;fanPointer.y=-((e.clientY-r.top)/r.height)*2+1;fanRaycaster.setFromCamera(fanPointer,camera)}
+    function fanSavePositions(){const saved={};planes.forEach(m=>{if(Number.isInteger(m.userData.index))saved[m.userData.index]={x:m.userData.baseX,y:m.userData.baseY,z:m.userData.baseZ}});try{localStorage.setItem('fanGalleryPositions',JSON.stringify(saved))}catch(e){}}
+    function fanApplyFocus(index){fanFocusedIndex = Number.isInteger(index) ? index : fanFocusedIndex; controls.target.lerp(new THREE.Vector3(0,0.15,0),0.22);}
+    window.addEventListener('message',e=>{if(e.data?.type==='fan-focus-image'){const idx=Number(e.data.index);if(Number.isInteger(idx))fanApplyFocus(idx)}});
+    const fanDragControls = new DragControls(planes,camera,renderer.domElement);
+    fanDragControls.addEventListener('hoveron',()=>renderer.domElement.style.cursor='grab');
+    fanDragControls.addEventListener('hoveroff',()=>renderer.domElement.style.cursor='default');
+    fanDragControls.addEventListener('dragstart',e=>{controls.enabled=false;renderer.domElement.style.cursor='grabbing';e.object.userData.fanDragging=true;e.object.userData.baseY=e.object.position.y;e.object.userData.baseX=e.object.position.x;e.object.userData.baseZ=e.object.position.z;fanFocusedIndex=e.object.userData.index;});
+    fanDragControls.addEventListener('drag',e=>{e.object.userData.baseX=e.object.position.x;e.object.userData.baseY=e.object.position.y;e.object.userData.baseZ=e.object.position.z;});
+    fanDragControls.addEventListener('dragend',e=>{e.object.userData.baseX=e.object.position.x;e.object.userData.baseY=e.object.position.y;e.object.userData.baseZ=e.object.position.z;e.object.userData.fanDragging=false;controls.enabled=true;renderer.domElement.style.cursor='grab';fanSavePositions()});
+    renderer.domElement.addEventListener('pointerdown',e=>{fanSetPointer(e);const hit=fanRaycaster.intersectObjects(planes,false)[0];fanTap.object=hit?hit.object:null;fanTap.x=e.clientX;fanTap.y=e.clientY;fanTap.pointerId=e.pointerId});
+    renderer.domElement.addEventListener('pointerup',e=>{if(fanTap.pointerId!==e.pointerId||!fanTap.object)return;const moved=Math.hypot(e.clientX-fanTap.x,e.clientY-fanTap.y)>8;const target=fanTap.object;fanTap.object=null;fanTap.pointerId=null;if(!moved&&!target.userData.fanDragging){fanFocusedIndex=target.userData.index;window.parent.postMessage({type:'fan-image-tap',index:target.userData.index},'*')}});
+    renderer.domElement.addEventListener('pointercancel',()=>{fanTap.object=null;fanTap.pointerId=null});
+
+    const clock = new THREE.Clock();`;
 async function loadGallery(){
   loadingNote.style.display='block';loadingNote.textContent='PREPARING GALLERY...';frame.srcdoc='';
   try{
@@ -79,11 +101,14 @@ async function loadGallery(){
     if(!pattern.test(html))throw new Error('imageData not found');
     html=html.replace(pattern,spaciousLayout)
       .replace("import { OrbitControls } from 'three/addons/controls/OrbitControls.js';","import { OrbitControls } from 'three/addons/controls/OrbitControls.js';\n    import { DragControls } from 'three/addons/controls/DragControls.js';")
+      .replace('scene.background = new THREE.Color(0x05050a);','scene.background = null;')
+      .replace('scene.fog = new THREE.FogExp2(0x05050a, 0.012);','scene.fog = new THREE.FogExp2(0xd5eac8, 0.014);')
+      .replace('const renderer = new THREE.WebGLRenderer({ antialias: true });','const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });')
       .replace('camera.position.set(0, 1.5, 13);','camera.position.set(0, 0.2, 16.5);')
       .replace('controls.target.set(0, 0.6, 0);','controls.target.set(0, 0.1, 0);')
       .replace('mesh.position.set(data.x, data.y, data.z);',`mesh.position.set(data.x, data.y, data.z);
       try { const saved=JSON.parse(localStorage.getItem('fanGalleryPositions')||'{}')[index]; if(saved) mesh.position.set(saved.x,saved.y,saved.z); } catch(e) {}`)
-      .replace('baseY: data.y,','baseY: mesh.position.y,\n        index,')
+      .replace('baseY: data.y,','baseX: mesh.position.x,\n        baseY: mesh.position.y,\n        baseZ: mesh.position.z,\n        index,')
       .replace('floatAmp: 0.11 + (index % 2) * 0.05','floatAmp: 0.045 + (index % 2) * 0.018')
       .replace(`planes.forEach((mesh) => {
         const u = mesh.userData;
@@ -92,26 +117,35 @@ async function loadGallery(){
         mesh.rotation.z = Math.sin(t * 0.16 + u.phase * 0.6) * 0.012;
       });`,`planes.forEach((mesh) => {
         const u = mesh.userData;
+        const focused = fanFocusedIndex === u.index;
         if (u.fanDragging) {
-          mesh.rotation.y = THREE.MathUtils.lerp(mesh.rotation.y, u.baseRotY, 0.22);
+          mesh.rotation.y = THREE.MathUtils.lerp(mesh.rotation.y, 0, 0.22);
           mesh.rotation.z = THREE.MathUtils.lerp(mesh.rotation.z, 0, 0.22);
           return;
         }
-        const targetY = u.baseY + Math.sin(t * u.floatSpeed + u.phase) * u.floatAmp;
-        const targetRotY = u.baseRotY + Math.sin(t * 0.2 + u.phase) * 0.028;
-        const targetRotZ = Math.sin(t * 0.16 + u.phase * 0.6) * 0.009;
-        mesh.position.y = THREE.MathUtils.lerp(mesh.position.y, targetY, 0.12);
-        mesh.rotation.y = THREE.MathUtils.lerp(mesh.rotation.y, targetRotY, 0.10);
-        mesh.rotation.z = THREE.MathUtils.lerp(mesh.rotation.z, targetRotZ, 0.10);
+        const floatY = u.baseY + Math.sin(t * u.floatSpeed + u.phase) * u.floatAmp;
+        const idleRotY = u.baseRotY + Math.sin(t * 0.2 + u.phase) * 0.028;
+        const idleRotZ = Math.sin(t * 0.16 + u.phase * 0.6) * 0.009;
+        const targetX = focused ? THREE.MathUtils.lerp(u.baseX, 0, 0.42) : u.baseX;
+        const targetY = focused ? THREE.MathUtils.lerp(floatY, 0.15, 0.35) : floatY;
+        const targetZ = focused ? u.baseZ + 3.6 : u.baseZ;
+        const targetRotY = focused ? 0 : idleRotY;
+        const targetRotZ = focused ? 0 : idleRotZ;
+        mesh.position.x = THREE.MathUtils.lerp(mesh.position.x, targetX, focused ? 0.16 : 0.12);
+        mesh.position.y = THREE.MathUtils.lerp(mesh.position.y, targetY, focused ? 0.16 : 0.12);
+        mesh.position.z = THREE.MathUtils.lerp(mesh.position.z, targetZ, focused ? 0.18 : 0.14);
+        mesh.rotation.y = THREE.MathUtils.lerp(mesh.rotation.y, targetRotY, focused ? 0.18 : 0.10);
+        mesh.rotation.z = THREE.MathUtils.lerp(mesh.rotation.z, targetRotZ, focused ? 0.18 : 0.10);
       });`)
       .replace('const clock = new THREE.Clock();',interactionCode)
       .replace('</head>','<style>.ui.title,.ui.hint{display:none!important}</style></head>');
     frame.srcdoc=html;
-    frame.addEventListener('load',()=>{loadingNote.style.display='none'},{once:true});
+    frame.addEventListener('load',()=>{loadingNote.style.display='none';setTimeout(()=>focusCurrent(),120)},{once:true});
   }catch(err){
     console.error('Fan gallery layout patch failed:',err);frame.src='./index.html';loadingNote.textContent='GALLERY FALLBACK';setTimeout(()=>loadingNote.style.display='none',1500);
   }
 }
+select(0);
 loadGallery();
 </script>
 </body>
