@@ -4,46 +4,76 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>カツドンチャンネル FAN ARCHIVE</title>
-<meta name="description" content="カツドンチャンネルを楽しむための非公式ファンアーカイブ。3Dギャラリーを巡りながら記録を眺めるファンページ。">
+<meta name="description" content="カツドンチャンネルを楽しむための非公式ファンアーカイブ。重なりを抑えた3Dギャラリーを巡りながら記録を眺めるファンページ。">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
 :root{--bg:#05050a;--panel:rgba(7,7,14,.72);--line:rgba(240,230,208,.16);--gold:#c9a227;--text:#eee8dc;--muted:#8f8a99;--glass:blur(16px)}
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-serif;overflow:hidden}
 .stage{position:fixed;inset:0}.stage iframe{width:100%;height:100%;border:0;display:block;background:#05050a}
-.vignette{position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 48%,transparent 20%,rgba(5,5,10,.16) 62%,rgba(5,5,10,.78) 100%);z-index:2}
-.grain{position:fixed;inset:0;z-index:3;pointer-events:none;opacity:.12;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E")}
-.brand{position:fixed;z-index:10;top:20px;left:24px;pointer-events:none;text-shadow:0 2px 16px #000}.brand .kicker{font:500 10px/1 'Cinzel',serif;letter-spacing:.34em;color:var(--gold);margin-bottom:8px}.brand h1{font-size:clamp(18px,2.1vw,30px);line-height:1.15;letter-spacing:.09em;margin:0}.brand small{display:block;margin-top:6px;font:500 10px/1.4 'Cinzel',serif;letter-spacing:.24em;color:var(--muted)}
-.nav{position:fixed;z-index:12;left:22px;top:50%;transform:translateY(-42%);width:min(290px,27vw);padding:16px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,rgba(10,10,18,.82),rgba(8,8,14,.48));backdrop-filter:var(--glass);box-shadow:0 20px 70px rgba(0,0,0,.35)}
-.nav-head{display:flex;align-items:center;justify-content:space-between;padding:0 3px 12px}.nav-head span{font:700 10px/1 'Cinzel',serif;letter-spacing:.25em;color:#aaa3b4}.badge{padding:4px 7px;border:1px solid rgba(201,162,39,.3);border-radius:999px;font-size:9px;color:var(--gold)}
+.vignette{position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 48%,transparent 20%,rgba(5,5,10,.13) 64%,rgba(5,5,10,.72) 100%);z-index:2}.grain{position:fixed;inset:0;z-index:3;pointer-events:none;opacity:.09;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E")}
+.brand,.nav,.info,.corner{transition:opacity .25s ease,transform .25s ease}.brand{position:fixed;z-index:10;top:20px;left:24px;pointer-events:none;text-shadow:0 2px 16px #000}.brand .kicker{font:500 10px/1 'Cinzel',serif;letter-spacing:.34em;color:var(--gold);margin-bottom:8px}.brand h1{font-size:clamp(18px,2.1vw,30px);line-height:1.15;letter-spacing:.09em;margin:0}.brand small{display:block;margin-top:6px;font:500 10px/1.4 'Cinzel',serif;letter-spacing:.24em;color:var(--muted)}
+.nav{position:fixed;z-index:12;left:22px;top:50%;transform:translateY(-42%);width:min(290px,27vw);padding:16px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,rgba(10,10,18,.82),rgba(8,8,14,.48));backdrop-filter:var(--glass);box-shadow:0 20px 70px rgba(0,0,0,.35)}.nav-head{display:flex;align-items:center;justify-content:space-between;padding:0 3px 12px}.nav-head span{font:700 10px/1 'Cinzel',serif;letter-spacing:.25em;color:#aaa3b4}.badge{padding:4px 7px;border:1px solid rgba(201,162,39,.3);border-radius:999px;font-size:9px;color:var(--gold)}
 .item{appearance:none;width:100%;border:0;border-top:1px solid rgba(255,255,255,.055);background:transparent;color:inherit;text-align:left;padding:12px 7px;cursor:pointer;display:grid;grid-template-columns:28px 1fr;gap:8px;transition:.25s}.item:first-of-type{border-top:0}.item:hover,.item.active{transform:translateX(3px);background:linear-gradient(90deg,rgba(201,162,39,.09),transparent)}.num{font:700 10px 'Cinzel',serif;color:var(--gold);padding-top:2px}.item strong{display:block;font-size:12px;letter-spacing:.06em}.item em{display:block;font-style:normal;font-size:10px;color:var(--muted);margin-top:3px;line-height:1.45}
-.info{position:fixed;z-index:12;right:22px;bottom:22px;width:min(370px,32vw);padding:18px 19px;border:1px solid var(--line);border-radius:18px;background:var(--panel);backdrop-filter:var(--glass);box-shadow:0 20px 70px rgba(0,0,0,.35)}.info .eyebrow{font:700 9px 'Cinzel',serif;letter-spacing:.27em;color:var(--gold)}.info h2{font-size:17px;margin:6px 0 7px;letter-spacing:.06em}.info p{font-size:11px;line-height:1.75;color:#bbb5c4;margin:0}.actions{display:flex;gap:8px;margin-top:14px}.action{border:1px solid var(--line);background:rgba(255,255,255,.035);color:#ddd5e2;border-radius:999px;padding:7px 11px;font:600 9px 'Cinzel',serif;letter-spacing:.12em;cursor:pointer}.action:hover{border-color:rgba(201,162,39,.5);color:#f2df9d}
-.corner{position:fixed;right:22px;top:22px;z-index:12;font:500 9px 'Cinzel',serif;letter-spacing:.16em;color:#7f7a88;text-align:right;line-height:1.7;pointer-events:none}.corner b{color:#c6bfca;font-weight:500}
-@media(max-width:760px){.brand{top:14px;left:15px}.brand small{display:none}.corner{display:none}.nav{left:10px;right:10px;bottom:10px;top:auto;transform:none;width:auto;padding:8px;display:flex;gap:5px;overflow:auto;border-radius:15px}.nav-head{display:none}.item{min-width:54px;width:54px;height:45px;padding:7px 4px;display:block;text-align:center;border:0;border-radius:10px}.item .num{font-size:11px}.item strong,.item em{display:none}.item.active{transform:none;background:rgba(201,162,39,.12)}.info{left:12px;right:12px;bottom:68px;width:auto;padding:13px 15px}.info h2{font-size:14px}.info p{font-size:10px;line-height:1.6}.actions{margin-top:9px}.action{padding:6px 9px}.vignette{background:linear-gradient(to bottom,rgba(5,5,10,.32),transparent 24%,transparent 65%,rgba(5,5,10,.72))}}
+.info{position:fixed;z-index:12;right:22px;bottom:22px;width:min(370px,32vw);padding:18px 19px;border:1px solid var(--line);border-radius:18px;background:var(--panel);backdrop-filter:var(--glass);box-shadow:0 20px 70px rgba(0,0,0,.35)}.info .eyebrow{font:700 9px 'Cinzel',serif;letter-spacing:.27em;color:var(--gold)}.info h2{font-size:17px;margin:6px 0 7px;letter-spacing:.06em}.info p{font-size:11px;line-height:1.75;color:#bbb5c4;margin:0}.actions{display:flex;gap:8px;margin-top:14px}.action,.restore-ui{border:1px solid var(--line);background:rgba(8,8,14,.72);color:#ddd5e2;border-radius:999px;padding:7px 11px;font:600 9px 'Cinzel',serif;letter-spacing:.12em;cursor:pointer;backdrop-filter:var(--glass)}.action:hover,.restore-ui:hover{border-color:rgba(201,162,39,.55);color:#f2df9d}
+.corner{position:fixed;right:22px;top:22px;z-index:12;font:500 9px 'Cinzel',serif;letter-spacing:.16em;color:#7f7a88;text-align:right;line-height:1.7;pointer-events:none}.corner b{color:#c6bfca;font-weight:500}.restore-ui{position:fixed;z-index:30;right:18px;top:18px;opacity:0;pointer-events:none;transform:translateY(-6px);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+body.ui-hidden .brand,body.ui-hidden .nav,body.ui-hidden .info,body.ui-hidden .corner{opacity:0;pointer-events:none}body.ui-hidden .restore-ui{opacity:1;pointer-events:auto;transform:none}
+.loading-note{position:fixed;left:50%;top:50%;z-index:1;transform:translate(-50%,-50%);font:500 10px 'Cinzel',serif;letter-spacing:.25em;color:#77717f;pointer-events:none}
+@media(max-width:760px){.brand{top:14px;left:15px}.brand small{display:none}.corner{display:none}.nav{left:10px;right:10px;bottom:10px;top:auto;transform:none;width:auto;padding:8px;display:flex;gap:5px;overflow:auto;border-radius:15px}.nav-head{display:none}.item{min-width:54px;width:54px;height:45px;padding:7px 4px;display:block;text-align:center;border:0;border-radius:10px}.item .num{font-size:11px}.item strong,.item em{display:none}.item.active{transform:none;background:rgba(201,162,39,.12)}.info{left:12px;right:12px;bottom:68px;width:auto;padding:13px 15px}.info h2{font-size:14px}.info p{font-size:10px;line-height:1.6}.actions{margin-top:9px}.action{padding:6px 9px}.restore-ui{right:12px;top:12px;padding:8px 10px}.vignette{background:linear-gradient(to bottom,rgba(5,5,10,.25),transparent 22%,transparent 70%,rgba(5,5,10,.64))}}
 </style>
 </head>
 <body>
-<div class="stage"><iframe src="./index.html" title="3D Gallery"></iframe></div>
+<div class="loading-note" id="loadingNote">PREPARING GALLERY...</div>
+<div class="stage"><iframe id="galleryFrame" title="3D Gallery"></iframe></div>
 <div class="vignette"></div><div class="grain"></div>
 <header class="brand"><div class="kicker">UNOFFICIAL FAN ARCHIVE</div><h1>カツドンチャンネル</h1><small>MEMORY / SCENE / VISUAL COLLECTION</small></header>
 <div class="corner"><b>FAN ARCHIVE 001</b><br>DRAG / ZOOM / EXPLORE</div>
 <nav class="nav" id="nav"><div class="nav-head"><span>ARCHIVE INDEX</span><i class="badge">6 FILES</i></div></nav>
-<section class="info" id="info"><div class="eyebrow" id="eyebrow">ARCHIVE 01</div><h2 id="title">KEY VISUAL</h2><p id="desc">3D空間を眺めながら、ファン目線で印象的なビジュアルや場面を巡るための入口です。</p><div class="actions"><button class="action" id="random">RANDOM</button><button class="action" id="quiet">UI HIDE</button></div></section>
+<section class="info" id="info"><div class="eyebrow" id="eyebrow">ARCHIVE 01</div><h2 id="title">KEY VISUAL</h2><p id="desc">画像同士が重なりにくいワイドな3D配置で、ファン目線のビジュアルをゆっくり巡れます。</p><div class="actions"><button class="action" id="random">RANDOM</button><button class="action" id="quiet">UI HIDE</button></div></section>
+<button class="restore-ui" id="restoreUi" type="button" aria-label="UIを再表示">SHOW UI</button>
 <script>
 const archive=[
-['KEY VISUAL','まずはここから。3D空間そのものをひとつの展示室として楽しむメインビジュアル。'],
+['KEY VISUAL','まずはここから。画像同士の間隔を広げた3D展示室でメインビジュアルを楽しめます。'],
 ['PROFILE SHEET','人物の雰囲気や表情、衣装、空気感をじっくり見るためのファン向け記録。'],
 ['CITY ILLUSTRATION','背景や街の空気まで含めて世界観を味わうためのシーンアーカイブ。'],
 ['SCENE CAPTURE','一瞬の表情や構図を切り取って眺める、場面鑑賞用の記録。'],
 ['ARCHIVE CLIP','繰り返し見返したくなるカットを集めていくためのファイル。'],
 ['COMMENT STREAM','ファン同士で語りたくなるポイントを残すためのメモ枠。']
 ];
-const nav=document.getElementById('nav'),title=document.getElementById('title'),desc=document.getElementById('desc'),eye=document.getElementById('eyebrow'),info=document.getElementById('info');
-let current=0,hidden=false;
+const nav=document.getElementById('nav'),title=document.getElementById('title'),desc=document.getElementById('desc'),eye=document.getElementById('eyebrow'),frame=document.getElementById('galleryFrame'),loadingNote=document.getElementById('loadingNote');
+let current=0;
 archive.forEach((a,i)=>{const b=document.createElement('button');b.className='item'+(i===0?' active':'');b.innerHTML=`<span class="num">0${i+1}</span><span><strong>${a[0]}</strong><em>${a[1]}</em></span>`;b.onclick=()=>select(i);nav.appendChild(b)});
 function select(i){current=i;[...nav.querySelectorAll('.item')].forEach((x,n)=>x.classList.toggle('active',n===i));eye.textContent=`ARCHIVE 0${i+1}`;title.textContent=archive[i][0];desc.textContent=archive[i][1]}
+function setUiHidden(hidden){document.body.classList.toggle('ui-hidden',hidden);document.getElementById('quiet').textContent=hidden?'UI SHOW':'UI HIDE'}
 document.getElementById('random').onclick=()=>{let n=current;while(n===current)n=Math.floor(Math.random()*archive.length);select(n)};
-document.getElementById('quiet').onclick=()=>{hidden=!hidden;document.querySelector('.nav').style.opacity=hidden?'0':'1';document.querySelector('.brand').style.opacity=hidden?'0':'1';info.style.opacity=hidden?'0':'1';document.querySelector('.corner').style.opacity=hidden?'0':'1';document.getElementById('quiet').textContent=hidden?'UI SHOW':'UI HIDE'};
-addEventListener('keydown',e=>{if(e.key>='1'&&e.key<='6')select(Number(e.key)-1);if(e.key.toLowerCase()==='r')document.getElementById('random').click()});
+document.getElementById('quiet').onclick=()=>setUiHidden(true);
+document.getElementById('restoreUi').onclick=()=>setUiHidden(false);
+addEventListener('keydown',e=>{if(e.key>='1'&&e.key<='6')select(Number(e.key)-1);if(e.key.toLowerCase()==='r')document.getElementById('random').click();if(e.key.toLowerCase()==='h')setUiHidden(!document.body.classList.contains('ui-hidden'));if(e.key==='Escape')setUiHidden(false)});
+const spaciousLayout=`const imageData = [
+  {'x': -5.8, 'y': 2.6, 'z': 0.0, 'scale': 2.8, 'rotY': 0.12},
+  {'x':  0.0, 'y': 2.6, 'z': -0.7, 'scale': 3.0, 'rotY': 0.0},
+  {'x':  5.6, 'y': 2.6, 'z': 0.0, 'scale': 1.9, 'rotY': -0.10},
+  {'x': -5.5, 'y': -2.3, 'z': 0.7, 'scale': 2.2, 'rotY': 0.10},
+  {'x':  0.0, 'y': -2.3, 'z': -0.2, 'scale': 2.2, 'rotY': 0.0},
+  {'x':  5.5, 'y': -2.3, 'z': 0.7, 'scale': 2.5, 'rotY': -0.10}
+];`;
+async function loadGallery(){
+  try{
+    const res=await fetch('./index.html',{cache:'no-store'});if(!res.ok)throw new Error(`HTTP ${res.status}`);
+    let html=await res.text();
+    const pattern=/const imageData = \[[\s\S]*?\];/;
+    if(!pattern.test(html))throw new Error('imageData not found');
+    html=html.replace(pattern,spaciousLayout)
+      .replace('camera.position.set(0, 1.5, 13);','camera.position.set(0, 0.2, 16.5);')
+      .replace('controls.target.set(0, 0.6, 0);','controls.target.set(0, 0.1, 0);')
+      .replace('floatAmp: 0.11 + (index % 2) * 0.05','floatAmp: 0.055 + (index % 2) * 0.025')
+      .replace('</head>','<style>.ui.title,.ui.hint{display:none!important}</style></head>');
+    frame.srcdoc=html;
+    frame.addEventListener('load',()=>{loadingNote.style.display='none'},{once:true});
+  }catch(err){
+    console.error('Fan gallery layout patch failed:',err);frame.src='./index.html';loadingNote.textContent='GALLERY FALLBACK';setTimeout(()=>loadingNote.style.display='none',1500);
+  }
+}
+loadGallery();
 </script>
 </body>
 </html>
