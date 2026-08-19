@@ -1,0 +1,94 @@
+:root {
+  --bg: #e7f0e8;
+  --ink: #141816;
+  --paper: #f6f3ec;
+  --muted: #5c6560;
+  --line: #cfd6d0;
+  --ease: cubic-bezier(0.23, 1, 0.32, 1);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); font-family: "Hiragino Sans", "Yu Gothic UI", "Noto Sans JP", system-ui, sans-serif; overflow: hidden; }
+button { font: inherit; cursor: pointer; }
+button:disabled { cursor: default; }
+
+.park { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.park-sky { position: absolute; inset: 0; background: #cfe6f4; }
+.park-canopy { position: absolute; inset: 0 0 auto; height: 38%; background: radial-gradient(120% 80% at 50% -10%, #9fd0ef 0%, transparent 70%), linear-gradient(180deg, #b7daf0, transparent); }
+.park-trees { position: absolute; inset: auto 0 28%; height: 36%; background: radial-gradient(42% 80% at 8% 80%, #4f7a4a 0 42%, transparent 43%), radial-gradient(36% 70% at 18% 92%, #5d8a52 0 46%, transparent 47%), radial-gradient(40% 78% at 84% 86%, #4a7346 0 44%, transparent 45%), radial-gradient(34% 68% at 94% 96%, #5a8750 0 48%, transparent 49%); }
+.park-lawn { position: absolute; inset: auto 0 0; height: 34%; background: linear-gradient(180deg, #7eaa6c 0%, #9bc484 38%, #b7d39a 100%); }
+.park-path { position: absolute; bottom: 0; left: 50%; width: min(52vw, 640px); height: 32%; transform: translateX(-50%); background: linear-gradient(180deg, rgba(235,226,205,.2), rgba(214,198,164,.92)); clip-path: polygon(44% 0, 56% 0, 100% 100%, 0 100%); }
+.park-badge { position: absolute; bottom: 18%; left: 50%; transform: translateX(-50%); border: 1px solid rgba(20,24,22,.15); background: rgba(246,243,236,.8); color: rgba(20,24,22,.7); border-radius: 999px; padding: 4px 12px; font-size: 10px; letter-spacing: .22em; font-weight: 500; }
+
+#stage { position: absolute; inset: 0; z-index: 1; }
+#stage canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+
+.loading { position: absolute; inset: 0; z-index: 20; display: grid; place-items: center; background: rgba(231,240,232,.7); letter-spacing: .28em; font-size: 14px; color: var(--muted); }
+.loading.hide { opacity: 0; pointer-events: none; transition: opacity .25s var(--ease); }
+
+.chrome { position: absolute; inset: 0; z-index: 30; pointer-events: none; }
+.chrome > * { pointer-events: auto; }
+.chrome.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
+.top { position: absolute; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; gap: 12px; padding: max(16px, env(safe-area-inset-top)) 20px 0; }
+.kicker { margin: 0; font-size: 10px; letter-spacing: .28em; font-weight: 500; color: rgba(20,24,22,.55); }
+h1 { margin: 2px 0 0; font-family: "Hiragino Mincho ProN", "Yu Mincho", serif; font-size: clamp(1.45rem, 3vw, 1.75rem); font-weight: 600; letter-spacing: -0.02em; }
+.actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+.actions button, .row button, .restore, .icon, #lightboxClose {
+  height: 36px; border-radius: 10px; border: 1px solid rgba(246,243,236,.2); background: rgba(20,24,22,.7); color: var(--paper); padding: 0 12px; font-size: 12px; letter-spacing: .04em;
+}
+.actions button.on, .row .solid { background: var(--paper); color: var(--ink); border-color: transparent; }
+.icon { width: 44px; padding: 0; font-size: 22px; line-height: 1; background: var(--paper); color: var(--ink); border-color: var(--line); }
+
+.card { position: absolute; left: 20px; bottom: 148px; width: min(22.5rem, calc(100% - 32px)); border-radius: 24px; border: 1px solid rgba(20,24,22,.1); background: rgba(20,24,22,.82); color: var(--paper); padding: 16px; box-shadow: 0 18px 50px rgba(20,24,22,.28); cursor: pointer; }
+.card-head { display: flex; justify-content: space-between; gap: 12px; margin-top: 4px; }
+.card h2 { margin: 0; font-family: "Hiragino Mincho ProN", "Yu Mincho", serif; font-size: 1.25rem; font-weight: 600; }
+#count { font-size: 12px; color: rgba(246,243,236,.45); font-variant-numeric: tabular-nums; }
+#desc { margin: 8px 0 0; font-size: 14px; line-height: 1.6; color: rgba(246,243,236,.72); }
+.hint { margin: 8px 0 0; font-size: 11px; letter-spacing: .04em; color: rgba(246,243,236,.45); }
+.row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+
+.strip { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 12px max(10px, env(safe-area-inset-bottom)); display: flex; gap: 8px; overflow-x: auto; }
+.strip button { min-width: 76px; flex: 1; border-radius: 16px; border: 1px solid rgba(20,24,22,.1); background: rgba(246,243,236,.72); padding: 6px; text-align: left; color: var(--ink); }
+.strip button.active { border-color: var(--ink); background: var(--paper); box-shadow: 0 8px 24px rgba(20,24,22,.16); }
+.strip img { width: 100%; height: 56px; object-fit: cover; border-radius: 10px; display: block; }
+.strip span { display: block; margin-top: 6px; padding: 0 2px; font-size: 11px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.restore { position: absolute; top: 16px; right: 16px; z-index: 40; }
+.hidden { display: none !important; }
+
+.overlay { position: absolute; inset: 0; z-index: 50; display: grid; place-items: center; padding: 12px; background: rgba(20,24,22,.45); }
+.overlay.dark { background: rgba(20,24,22,.82); }
+.sheet, .panel { width: min(36rem, 100%); max-height: min(88dvh, 760px); overflow: auto; border-radius: 28px; border: 1px solid rgba(246,243,236,.1); background: var(--paper); color: var(--ink); padding: 20px 20px 16px; box-shadow: 0 24px 70px rgba(20,24,22,.35); }
+.sheet-head { display: flex; justify-content: space-between; gap: 12px; }
+.sheet h2, .panel h2 { margin: 2px 0 0; font-family: "Hiragino Mincho ProN", "Yu Mincho", serif; font-size: 1.5rem; }
+.sheet-lead { margin: 8px 0 0; font-size: 14px; color: var(--muted); }
+#quoteList { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 8px; }
+#quoteList button { width: 100%; text-align: left; border: 1px solid var(--line); background: rgba(231,240,232,.6); border-radius: 16px; padding: 12px 16px; }
+#quoteList button:hover { background: var(--bg); }
+#quoteList strong { display: block; font-size: 15px; font-weight: 500; }
+#quoteList small { display: block; margin-top: 4px; font-size: 11px; color: var(--muted); }
+.credit, .note { font-size: 11px; color: var(--muted); line-height: 1.6; }
+.credit { margin: 12px 0 0; }
+.note { margin: 20px 0 0; }
+.panel dl { margin: 16px 0 0; display: grid; gap: 12px; }
+.panel dt { font-weight: 600; font-size: 14px; }
+.panel dd { margin: 2px 0 0; font-size: 14px; line-height: 1.6; color: var(--muted); }
+
+#lightboxClose { position: absolute; top: 16px; right: 16px; }
+#lightbox figure { margin: 0; max-width: 64rem; }
+#lightbox img { max-height: 82dvh; width: auto; max-width: 100%; border-radius: 16px; display: block; }
+#lightbox figcaption { margin-top: 12px; text-align: center; color: rgba(246,243,236,.8); font-size: 14px; }
+
+.comments { position: absolute; inset: 0; z-index: 25; pointer-events: none; overflow: hidden; }
+.nico { position: absolute; left: 100%; white-space: nowrap; font-weight: 700; letter-spacing: .02em; text-shadow: -1px -1px 0 #141816, 1px -1px 0 #141816, -1px 1px 0 #141816, 1px 1px 0 #141816; animation: nico linear forwards; }
+@keyframes nico { to { transform: translateX(calc(-100vw - 140%)); } }
+
+@media (max-width: 760px) {
+  .card { left: 16px; right: 16px; width: auto; bottom: 122px; }
+  .actions button:nth-child(3) { padding: 0 10px; }
+  h1 { font-size: 1.35rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nico { animation: none; left: 50%; transform: translateX(-50%); }
+}
