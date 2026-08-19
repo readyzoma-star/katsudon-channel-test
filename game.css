@@ -61,6 +61,9 @@ body.playing .wrap {
   background: var(--paper); color: var(--ink);
   padding: 1.4rem 1.35rem 1.2rem;
   box-shadow: 0 24px 70px rgba(20,24,22,.35);
+  position: relative;
+  z-index: 5;
+  pointer-events: auto;
 }
 .panel h1, .panel h2 {
   margin: .35rem 0 0;
@@ -73,11 +76,13 @@ body.playing .wrap {
 
 .diff-label { margin: 1.1rem 0 .4rem; font-size: 11px; letter-spacing: .2em; color: var(--muted); }
 .diff {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
-  position: relative; z-index: 2;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+  position: relative; z-index: 20;
+  pointer-events: auto;
 }
 .diff button {
-  height: 48px;
+  height: 52px;
+  min-height: 52px;
   border-radius: 12px;
   border: 2px solid var(--line);
   background: #fff;
@@ -86,9 +91,16 @@ body.playing .wrap {
   font-weight: 700;
   letter-spacing: .06em;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(20,24,22,.15);
   touch-action: manipulation;
   user-select: none;
+  -webkit-user-select: none;
+  pointer-events: auto;
+  position: relative;
+  z-index: 21;
+}
+.diff button:active {
+  transform: scale(0.96);
 }
 .diff button.on {
   background: var(--ink);
