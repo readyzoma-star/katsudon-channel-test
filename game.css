@@ -52,6 +52,12 @@ body.playing .wrap {
 }
 .solid { background: var(--paper); color: var(--ink); border-color: transparent; font-weight: 600; }
 .ghost { background: transparent; }
+.panel .ghost, .panel .linkbtn {
+  color: var(--ink);
+  border-color: var(--line);
+  background: #fff;
+}
+.panel .ghost:active, .panel .linkbtn:active { transform: scale(0.98); }
 .ghost.on { background: var(--paper); color: var(--ink); border-color: transparent; }
 .kicker { margin: 0; font-size: 10px; letter-spacing: .28em; font-weight: 500; color: rgba(246,243,236,.5); }
 
