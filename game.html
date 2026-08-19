@@ -1,1 +1,109 @@
-PLACEHOLDER_WILL_REPLACE
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>カツドン、配信を終えろ</title>
+  <meta name="description" content="便意を我慢して雑談配信を終える非公式ミニゲーム。ずんだもん音声付き。">
+  <link rel="canonical" href="https://shortinmsleeper.github.io/katsudon-channel-test/game.html">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="カツドン、配信を終えろ">
+  <meta property="og:description" content="便意を我慢して配信を終えろ。ずんだもんが内心を読み上げます。">
+  <meta property="og:url" content="https://shortinmsleeper.github.io/katsudon-channel-test/game.html">
+  <meta property="og:image" content="https://shortinmsleeper.github.io/katsudon-channel-test/og-image.jpg">
+  <meta name="theme-color" content="#141816">
+  <link rel="stylesheet" href="./game.css?v=4">
+</head>
+<body>
+  <div class="bg" aria-hidden="true"></div>
+  <div class="shade"></div>
+
+  <div class="wrap" id="wrap">
+    <header class="top">
+      <a class="back" href="./">← ギャラリー</a>
+      <p class="kicker">UNOFFICIAL MINIGAME</p>
+    </header>
+
+    <section id="title" class="panel">
+      <p class="kicker">LIVE ENDURANCE</p>
+      <h1>カツドン、配信を終えろ</h1>
+      <p class="lead">便意を催したカツドンさんが、トイレに駆け込まずに雑談配信を終えるまで我慢するゲームです。内心の声はずんだもんが読み上げます。</p>
+      <ul class="rules">
+        <li>「踏ん張る」を押しているあいだ、便意が下がります</li>
+        <li>力を使い切ると一瞬ゆるむので、呼吸も必要です</li>
+        <li>長押ししすぎると<strong>逆噴射</strong>して即ゲームオーバーです</li>
+        <li>配信タイマーがゼロになる前にゲージ満タンでも終了です</li>
+      </ul>
+
+      <p class="diff-label">難易度</p>
+      <div class="diff" id="diff" role="group" aria-label="難易度">
+        <button type="button" data-diff="easy" class="on" aria-pressed="true">EASY</button>
+        <button type="button" data-diff="hard" aria-pressed="false">HARD</button>
+        <button type="button" data-diff="extreme" aria-pressed="false">EXTREME</button>
+      </div>
+      <p class="diff-desc" id="diffDesc">配信 80秒 / 逆噴射 8秒 / イベントゆるめ</p>
+
+      <div class="row">
+        <button type="button" class="solid" id="startBtn">配信をはじめる</button>
+        <button type="button" class="ghost" id="voiceToggle" aria-pressed="true">ずんだもん ON</button>
+      </div>
+      <p class="stats" id="bestStats"></p>
+      <p class="credit">音声：VOICEVOX:ずんだもん</p>
+    </section>
+
+    <section id="play" class="play hidden">
+      <div class="hud">
+        <span class="live"><i></i> LIVE</span>
+        <span class="pill" id="clock">1:20</span>
+        <span class="pill" id="viewers">42 人が視聴中</span>
+        <span class="pill" id="diffBadge">EASY</span>
+      </div>
+
+      <div class="stage">
+        <div class="cam" id="cam">
+          <img src="./archive/05.jpg" alt="配信中のカツドン" class="cam-img">
+          <div class="cam-tint" id="camTint"></div>
+          <div class="event-banner hidden" id="eventBanner">
+            <p class="event-kicker">EVENT</p>
+            <p id="eventLabel"></p>
+          </div>
+          <div class="cam-caption">
+            <p class="name">カツドン</p>
+            <p class="line" id="line">今日もまったりいきます。</p>
+          </div>
+        </div>
+        <aside class="chat" id="chatList"></aside>
+      </div>
+
+      <div class="controls">
+        <div class="meters">
+          <div>
+            <p class="meter-label">便意 <strong id="urgeNum">16</strong></p>
+            <div class="bar"><div class="bar-fill" id="urgeBar"></div></div>
+          </div>
+          <div>
+            <p class="meter-label">踏ん張り <span id="stamNum">100</span> · 連続 <span id="holdNum">0.0</span>s</p>
+            <div class="bar thin"><div class="bar-fill stam" id="stamBar"></div></div>
+            <div class="bar thin risk"><div class="bar-fill risk-fill" id="holdBar"></div></div>
+          </div>
+        </div>
+        <button type="button" class="hold" id="holdBtn">踏ん張る</button>
+        <p class="hint">押し続けて我慢。離すと息を吸います。長押ししすぎ注意。スペースキー可。</p>
+      </div>
+    </section>
+
+    <section id="result" class="panel hidden">
+      <p class="kicker" id="resultKicker">STREAM COMPLETE</p>
+      <h2 id="resultTitle">配信、無事終了。</h2>
+      <p class="lead" id="resultLead"></p>
+      <div class="row">
+        <button type="button" class="solid" id="retryBtn">もう一度配信する</button>
+        <a class="ghost linkbtn" href="./">ギャラリーに戻る</a>
+      </div>
+    </section>
+  </div>
+
+  <script src="./game.js?v=4" defer></script>
+</body>
+</html>
