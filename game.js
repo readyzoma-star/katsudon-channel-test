@@ -27,8 +27,8 @@ const DIFFS = {
     eventMin: 5.5,
     eventMax: 8.5,
     eventSpikeScale: 1,
-    reverseHold: 5.5,
-    desc: "配信 68秒 / 逆噴射 5.5秒 / 標準",
+    reverseHold: 0.8,
+    desc: "配信 68秒 / 逆噴射 0.8秒 / 標準",
   },
   extreme: {
     label: "EXTREME",
@@ -41,8 +41,8 @@ const DIFFS = {
     eventMin: 3.8,
     eventMax: 6.2,
     eventSpikeScale: 1.25,
-    reverseHold: 3.8,
-    desc: "配信 55秒 / 逆噴射 3.8秒 / 容赦なし",
+    reverseHold: 0.4,
+    desc: "配信 55秒 / 逆噴射 0.4秒 / 容赦なし",
   },
 };
 
