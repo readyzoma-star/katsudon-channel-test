@@ -33,10 +33,17 @@ button:disabled { cursor: default; }
 .kicker { margin: 0; font-size: 10px; letter-spacing: .28em; font-weight: 500; color: rgba(20,24,22,.55); }
 h1 { margin: 2px 0 0; font-family: "Hiragino Mincho ProN", "Yu Mincho", serif; font-size: clamp(1.45rem, 3vw, 1.75rem); font-weight: 600; letter-spacing: -0.02em; }
 .actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
-.actions button, .row button, .restore, .icon, #lightboxClose {
+.actions button, .actions a.game-link, .row button, .row a.game-link, .restore, .icon, #lightboxClose {
   height: 36px; border-radius: 10px; border: 1px solid rgba(246,243,236,.2); background: rgba(20,24,22,.7); color: var(--paper); padding: 0 12px; font-size: 12px; letter-spacing: .04em;
+  display: inline-flex; align-items: center; justify-content: center; text-decoration: none; font: inherit; cursor: pointer;
 }
 .actions button.on, .row .solid { background: var(--paper); color: var(--ink); border-color: transparent; }
+.actions a.game-link {
+  background: #2f3d36; color: var(--paper); border-color: transparent; font-weight: 600;
+}
+.row a.game-link.solid {
+  background: #c45a3a; color: #fff; border-color: transparent; font-weight: 600;
+}
 .icon { width: 44px; padding: 0; font-size: 22px; line-height: 1; background: var(--paper); color: var(--ink); border-color: var(--line); }
 
 .card { position: absolute; left: 20px; bottom: 148px; width: min(22.5rem, calc(100% - 32px)); border-radius: 24px; border: 1px solid rgba(20,24,22,.1); background: rgba(20,24,22,.82); color: var(--paper); padding: 16px; box-shadow: 0 18px 50px rgba(20,24,22,.28); cursor: pointer; }
@@ -49,7 +56,7 @@ h1 { margin: 2px 0 0; font-family: "Hiragino Mincho ProN", "Yu Mincho", serif; f
 
 .strip { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 12px max(10px, env(safe-area-inset-bottom)); display: flex; gap: 8px; overflow-x: auto; }
 .strip button { min-width: 76px; flex: 1; border-radius: 16px; border: 1px solid rgba(20,24,22,.1); background: rgba(246,243,236,.72); padding: 6px; text-align: left; color: var(--ink); }
-.strip button.active { border-color: var(--ink); background: var(--paper); box-shadow: 0 8px 24px rgba(20,24,22,.16); }
+.strip button.active { border-color: var(--ink); background: var(--paper); box-shadow: 0 8px 24px rgba(246,243,236,.16); }
 .strip img { width: 100%; height: 56px; object-fit: cover; border-radius: 10px; display: block; }
 .strip span { display: block; margin-top: 6px; padding: 0 2px; font-size: 11px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
