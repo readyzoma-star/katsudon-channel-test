@@ -427,6 +427,7 @@ function tick(now) {
 function setDifficulty(next) {
   if (!DIFFS[next]) return;
   difficulty = next;
+  try { localStorage.setItem("katsudon-game-diff", next); } catch {}
   document.querySelectorAll("#diff [data-diff]").forEach((b) => {
     const on = b.getAttribute("data-diff") === difficulty;
     b.classList.toggle("on", on);
@@ -437,30 +438,31 @@ function setDifficulty(next) {
   const badge = document.getElementById("diffBadge");
   if (badge) badge.textContent = DIFFS[difficulty].label;
 }
-const diffRoot = document.getElementById("diff");
-if (diffRoot) {
-  const choose = (el) => {
-    const btn = el && el.closest ? el.closest("[data-diff]") : null;
-    if (!btn || !diffRoot.contains(btn)) return;
-    setDifficulty(btn.getAttribute("data-diff"));
-  };
-  diffRoot.addEventListener("click", (e) => {
-    e.preventDefault();
-    choose(e.target);
-  });
-  diffRoot.addEventListener("pointerup", (e) => {
-    if (e.pointerType === "touch" || e.pointerType === "pen") {
-      e.preventDefault();
-      choose(e.target);
-    }
-  });
-  diffRoot.querySelectorAll("[data-diff]").forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      setDifficulty(btn.getAttribute("data-diff"));
-    });
+window.__setDiff = setDifficulty;
+
+function bindDifficultyButtons() {
+  const root = document.getElementById("diff");
+  if (!root) return;
+  root.querySelectorAll("[data-diff]").forEach((btn) => {
+    if (btn.dataset.bound === "1") return;
+    btn.dataset.bound = "1";
+    const apply = (e) => {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      const key = btn.getAttribute("data-diff");
+      setDifficulty(key);
+    };
+    // Android WebView: pointerdown + click + touchend の三重バインド
+    btn.addEventListener("pointerdown", apply, { passive: false });
+    btn.addEventListener("touchend", apply, { passive: false });
+    btn.addEventListener("click", apply);
+    btn.onclick = apply;
   });
 }
+bindDifficultyButtons();
+
 $("voiceToggle").onclick = () => {
   voiceOn = !voiceOn;
   localStorage.setItem("katsudon-game-voice", voiceOn ? "1" : "0");
@@ -488,5 +490,13 @@ window.addEventListener("keyup", (e) => {
   if (e.code === "Space" || e.key === " ") { e.preventDefault(); setHold(false); }
 });
 window.addEventListener("pointerdown", () => unlockVoice(), { once: true });
-setDifficulty("easy"); syncVoiceUI(); renderBest(); show("title");
+(function initDiff() {
+  let saved = "easy";
+  try {
+    const s = localStorage.getItem("katsudon-game-diff");
+    if (s && DIFFS[s]) saved = s;
+  } catch {}
+  setDifficulty(saved);
+})();
+syncVoiceUI(); renderBest(); show("title");
 requestAnimationFrame(tick);
